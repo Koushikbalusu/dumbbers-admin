@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #c4c4c4;
+  --foreground: #000000;
+  --primary-accent: #000000;
+  --secondary-accent: #c4c4c4;
+  --border-color: #000000;
+  --card-bg: #c4c4c4;
+  --font-orbitron: 'Orbitron', sans-serif;
 }
 
 @theme inline {
@@ -12,15 +17,160 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Fixed light theme per brand */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-orbitron);
+  letter-spacing: 0.02em;
 }
+
+/* Decorative numeric font (ensure file in public/DigitalCalculator.woff2) */
+@font-face {
+  font-family: 'DigitalCalculator';
+  src: url('/DigitalCalculator.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base UI elements matching brand */
+.card { @apply rounded-lg p-6 border-2; border-color: var(--border-color); background: var(--card-bg); }
+.navbar { @apply sticky top-0 z-40; background: #cacaca; border-bottom: 2px solid var(--border-color); box-shadow: 0 2px 0 #000000; }
+.navbar-inner { @apply flex items-center justify-between gap-6 px-6 py-4; }
+.nav-title { @apply font-extrabold uppercase; letter-spacing: 0.08em; }
+.nav-links { @apply flex gap-2; }
+.nav-link { display: inline-flex; align-items: center; padding: 10px 14px; border: 2px solid var(--border-color); border-radius: 999px; background: #c4c4c4; color: #000000; text-decoration: none; }
+.nav-link:hover { background: #000000; color: #c4c4c4; }
+.nav-right { display: flex; gap: 8px; align-items: center; }
+.nav-spacer { flex: 1 1 auto; }
+
+label { 
+  @apply text-xs uppercase; 
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+input, select, textarea { 
+  @apply rounded-md px-4 py-3; 
+  background: #c4c4c4; 
+  color: #000000; 
+  border: 2px solid var(--border-color); 
+  font-family: var(--font-geist-sans);
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+input:disabled, select:disabled, textarea:disabled {
+  background: #e0e0e0;
+  color: #666;
+  cursor: not-allowed;
+}
+button { @apply rounded-lg px-5 py-3 font-bold uppercase cursor-pointer; background: #c4c4c4; color: #000000; border: 2px solid var(--border-color); }
+button:hover { background: #000000; color: #c4c4c4; }
+
+.btn-danger { @apply rounded-lg px-5 py-3 font-bold uppercase cursor-pointer; background: #c4c4c4; color: #000000; border: 2px solid var(--border-color); }
+.btn-danger:hover { background: #000000; color: #c4c4c4; }
+
+.btn-primary { @apply rounded-lg px-5 py-3 font-bold uppercase cursor-pointer; background: #c4c4c4; color: #000000; border: 2px solid var(--border-color); }
+.btn-primary:hover { background: #000000; color: #c4c4c4; }
+
+.btn-secondary { @apply rounded-lg px-4 py-2 font-bold uppercase cursor-pointer; background: #c4c4c4; color: #000000; border: 2px solid var(--border-color); font-size: 12px; }
+.btn-secondary:hover { background: #000000; color: #c4c4c4; }
+
+table { @apply w-full border-collapse; font-family: var(--font-geist-sans); }
+th, td { @apply px-4 py-3; border: 2px solid var(--border-color); text-align: left; }
+th { background: #cacaca; text-transform: uppercase; font-size: 12px; }
+tr:nth-child(even) td { background: #d6d6d6; }
+
+.badge { @apply inline-flex items-center justify-center px-2; border-radius: 999px; background: #000000; color: #c4c4c4; font-size: 12px; font-family: var(--font-geist-sans); }
+.digital { font-family: 'DigitalCalculator', var(--font-geist-mono); }
+
+.container { @apply max-w-6xl mx-auto px-6; }
+
+/* Footer */
+.footer { background: #cacaca; border-top: 2px solid var(--border-color); box-shadow: 0 -2px 0 #000000 inset; margin-top: 32px; }
+.footer-inner { @apply container; padding: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.footer-left { display: flex; align-items: center; gap: 12px; }
+.footer-right { display: flex; align-items: center; gap: 12px; }
+
+/* Image URL inputs */
+.image-urls-container { display: flex; flex-direction: column; gap: 8px; }
+.image-url-input { display: flex; align-items: center; gap: 8px; }
+.image-url-input input { flex: 1; }
+.remove-url-btn { padding: 8px; background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; border-radius: 4px; cursor: pointer; }
+.remove-url-btn:hover { background: #ffcdd2; }
+
+/* Form sections */
+.form-section { 
+  margin-bottom: 32px; 
+  padding: 20px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+}
+.form-section:last-child { margin-bottom: 0; }
+
+/* Form groups */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Form rows */
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.form-row:last-child {
+  margin-bottom: 0;
+}
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Required field indicator */
+label.required::after {
+  content: " *";
+  color: #c62828;
+  font-weight: bold;
+}
+
+/* Error states */
+.form-error {
+  color: #c62828;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+  border-color: #c62828;
+}
+
+/* Success states */
+.form-group.success input,
+.form-group.success select,
+.form-group.success textarea {
+  border-color: #2e7d32;
+}
+
+/* Pagination */
+.pagination { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; }
+.pagination-controls { display: flex; gap: 12px; align-items: center; }
+.pagination-info { font-size: 14px; }
+
+/* Action buttons */
+.action-buttons { display: flex; gap: 8px; align-items: center; }
